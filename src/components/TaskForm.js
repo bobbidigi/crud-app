@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 
-export default function TaskForm() {
+export default function TaskForm({setTasks, tasks}) {
 
     const [formValues, setFormValues] = useState({
-        id: null,
+        id: Date.now(),
         task: '',
         Completed: false
     })
@@ -13,7 +13,9 @@ export default function TaskForm() {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setFormValues(state => ({...formValues, id: Date.now()}))
+        setTasks([...tasks, formValues])
         console.log(formValues);
     }
 
