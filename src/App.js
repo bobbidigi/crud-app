@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import './components/TaskForm';
 import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
 
 
 function App() {
@@ -25,7 +27,22 @@ function App() {
 
   return (
     <div className="App">
-      <TaskForm setTasks={setTasks} tasks={tasks}/>     
+      <Switch>
+        <Route exact path='/' render={props=> <TaskList {...props} tasks={tasks}/>} />
+        <Route path='/addTask' 
+          render={props=> <TaskForm {...props} 
+          setTasks={setTasks} 
+          tasks={tasks}
+          edit={false}
+          />} />
+        <Route path='/editTask/:id' 
+          render={props=> <TaskForm {...props} 
+          setTasks={setTasks} 
+          tasks={tasks}
+          edit={true}
+          />} />
+      </Switch>
+          
     </div>
   );
 }
