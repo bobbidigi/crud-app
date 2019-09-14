@@ -24,11 +24,21 @@ function App() {
     }
   }, [tasks])
 
+  const deleteTask = (id) => {
+    const newTasks = tasks.filter((task) => task.id !== id)
+    setTasks(newTasks);
+  }
+
 
   return (
     <div className="App">
       <Switch>
-        <Route exact path='/' render={props=> <TaskList {...props} tasks={tasks}/>} />
+        <Route exact path='/' 
+          render={props=> <TaskList
+          {...props} 
+          tasks={tasks}
+          deleteTask={deleteTask}
+          />} />
         <Route path='/addTask' 
           render={props=> <TaskForm {...props} 
           setTasks={setTasks} 
