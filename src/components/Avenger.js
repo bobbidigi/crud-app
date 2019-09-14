@@ -1,14 +1,22 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {
+    Card, CardImg,
+    CardTitle, Button, CardBody
+  } from 'reactstrap';
 
-function Avenger({avenger, setAvengers, deleteAvenger}) {
+function Avenger({avenger, deleteAvenger}) {
     return (
-            <li>{avenger.avenger}
-            <p>{avenger.name}</p>
-            <img src={avenger.img}/>
-            <Link to={`editAvenger/${avenger.id}`}><button>Edit</button></Link>
-            <button onClick={() => deleteAvenger(avenger.id)}>Delete</button>
-            </li>
+            <Card color="warning" className="character-card">{avenger.avenger}
+            
+            <CardImg src={avenger.img}/>
+            <CardBody>
+                <CardTitle>{avenger.name}</CardTitle>
+                <Link to={`editAvenger/${avenger.id}`}><Button color="info" size="sm">Edit</Button></Link>
+                <Button color="danger" size="sm" onClick={() => deleteAvenger(avenger.id)}>Delete</Button>
+            </CardBody>
+            
+            </Card>
     )
 }
 
