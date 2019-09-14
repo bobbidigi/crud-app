@@ -1,32 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
-import './components/TaskForm';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
+import './components/AvengerForm';
+import AvengerForm from './components/AvengerForm';
+import AvengerList from './components/AvengerList';
+import {avengersData} from './data';
 
 
 function App() {
-  const [tasks, setTasks] = useState([])
+  const [avengers, setAvengers] = useState(avengersData);
 
   useEffect(() => {
-    if (tasks.length === 0) {
-      if (localStorage.getItem('tasks')) {
-        setTasks(JSON.parse(localStorage.getItem('tasks')));
+    if (avengers.length === 0) {
+      if (localStorage.getItem('avengers')) {
+        setAvengers(JSON.parse(localStorage.getItem('avengers')));
       }
     }
   }, [])
   useEffect(() => {
-    if (localStorage.getItem('tasks') && JSON.parse(localStorage.getItem('tasks').length !== tasks.length)) {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+    if (localStorage.getItem('avengers') && JSON.parse(localStorage.getItem('avengers').length !== avengers.length)) {
+      localStorage.setItem('avengers', JSON.stringify(avengers));
     } else {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem('avengers', JSON.stringify(avengers));
     }
-  }, [tasks])
+  }, [avengers])
 
-  const deleteTask = (id) => {
-    const newTasks = tasks.filter((task) => task.id !== id)
-    setTasks(newTasks);
+  const deleteAvenger = (id) => {
+    const newAvenger = avengers.filter((avenger) => avenger.id !== id)
+    setAvengers(newAvenger);
   }
 
 
@@ -34,25 +35,24 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/' 
-          render={props=> <TaskList
+          render={props=> <AvengerList
           {...props} 
-          tasks={tasks}
-          deleteTask={deleteTask}
+          avengers={avengers}
+          deleteAvenger={deleteAvenger}
           />} />
-        <Route path='/addTask' 
-          render={props=> <TaskForm {...props} 
-          setTasks={setTasks} 
-          tasks={tasks}
+        <Route path='/addAvenger' 
+          render={props=> <AvengerForm {...props} 
+          setAvengers={setAvengers} 
+          avengers={avengers}
           edit={false}
           />} />
-        <Route path='/editTask/:id' 
-          render={props=> <TaskForm {...props} 
-          setTasks={setTasks} 
-          tasks={tasks}
+        <Route path='/editAvenger/:id' 
+          render={props=> <AvengerForm {...props} 
+          setAvengers={setAvengers} 
+          avengers={avengers}
           edit={true}
           />} />
       </Switch>
-          
     </div>
   );
 }

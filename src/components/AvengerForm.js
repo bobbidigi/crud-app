@@ -1,34 +1,35 @@
 import React, {useState, useEffect} from 'react'
 
-export default function TaskForm({setTasks, tasks, history, edit, match:{params:{id}}}) {
+export default function AvengerForm({setAvengers, avengers, history, edit, match:{params:{id}}}) {
 
     const [formValues, setFormValues] = useState({
         id: Date.now(),
-        task: '',
+        name: '',
+        img: '',
         Completed: false
     })
 
     useEffect(() =>{
         if(edit){
-            const editTask = tasks.filter(tasks => tasks.id.toString() === id)[0]
-            setFormValues(editTask);
+            const editAvenger = avengers.filter(avengers => avengers.id.toString() === id)[0]
+            setFormValues(editAvenger);
         }
     },[])
 
-    function updateTask(taskId){
-        const updatedTasks = tasks.map(task => {
-            if(task.id === taskId){
+    function updateAvenger(AvengerId){
+        const updatedAvengers = avengers.map(avenger => {
+            if(avenger.id === AvengerId){
                 return formValues      
             }else{
-                return task;
+                return avenger;
             }
         })
-        setTasks(updatedTasks) 
+        setAvengers(updatedAvengers) 
     }
 
-    function addTask(){
+    function addAvenger(){
         setFormValues(state => ({...state, id: Date.now()}))
-        setTasks([...tasks, formValues])
+        setAvengers([...avengers, formValues])
     }
 
     const handleChange = ({target: {name, value}}) =>{
@@ -37,16 +38,17 @@ export default function TaskForm({setTasks, tasks, history, edit, match:{params:
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        edit ? updateTask(formValues.id) : addTask()
+        edit ? updateAvenger(formValues.id) : addAvenger()
         history.push('/')
     }
 
     return (
         <div>
-            <h1>Task Form</h1>
+            <h1>Create New Avenger</h1>
             <form onSubmit={handleSubmit}>
                 <label>Task</label>
-                <input name="task" value={formValues.task} onChange={handleChange}></input>
+                <input name="name" value={formValues.name} onChange={handleChange}></input>
+                <input name="img" value={formValues.img} onChange={handleChange}></input>
                 <button type="submit">Submit</button>
                 <button>Cancel</button>
             </form>
