@@ -5,8 +5,7 @@ export default function AvengerForm({setAvengers, avengers, history, edit, match
     const [formValues, setFormValues] = useState({
         id: Date.now(),
         name: '',
-        img: '',
-        Completed: false
+        img: ''
     })
 
     useEffect(() =>{
