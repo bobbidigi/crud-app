@@ -45,9 +45,10 @@ export default function AvengerForm({setAvengers, avengers, history, edit, match
         <div>
             <h1>Create New Avenger</h1>
             <form onSubmit={handleSubmit}>
-                <label>Task</label>
-                <input name="name" value={formValues.name} onChange={handleChange}></input>
-                <input name="img" value={formValues.img} onChange={handleChange}></input>
+                <label>Name</label>
+                <input name="name" value={formValues.name} placeholder="super name" onChange={handleChange}></input>
+                <label>Image URL</label>
+                <input name="img" value={formValues.img} placeholder="http://super-IMAGE" onChange={handleChange}></input>
                 <button type="submit">Submit</button>
                 <button>Cancel</button>
             </form>
